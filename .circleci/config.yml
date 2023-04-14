@@ -3,30 +3,6 @@ orbs:
   aws-ecr: circleci/aws-ecr@8.2.1
   aws-eks: circleci/aws-eks@2.2.0
   kubernetes: circleci/kubernetes@1.3.1
-jobs:
-  create-deployment:
-    docker:
-      - image: ${AWS_ECR_URL}/circleci-ecr-demo-v1:${CIRCLE_SHA1}
-    parameters:
-      cluster-name:
-        description: demo-cluster
-        type: string
-      version-info:
-        description: ${CIRCLE_SHA1}
-        type: string
-      aws-region:
-        description: ${AWS_REGION}
-        type: string
-        default: "ap-south-1"
-    steps:
-      - checkout
-      - aws-eks/update-kubeconfig-with-authenticator:
-          cluster-name: << parameters.cluster-name >>
-          install-kubectl: true
-      - kubernetes/create-or-update-resource:
-          resource-file-path: "deployment.yaml"
-          get-rollout-status: true
-          resource-name: deployment/demoapp
 workflows:
   build_and_push_image:
     jobs:
@@ -38,10 +14,32 @@ workflows:
           path: .
           push-image: true
           repo: circleci-ecr-demo-v1
-          tag: "latest,v0.1.${CIRCLE_BUILD_NUM}"
+          tag: latest,v0.1.${CIRCLE_BUILD_NUM}
       - create-deployment:
-          context: aws-dev
-          cluster-name: demo-cluster
-          version-info: 1.0.0
-          requires:
-            - aws-ecr/build-and-push-image
+          docker: null
+      - image: ${AWS_ECR_URL}/circleci-ecr-demo-v1:${CIRCLE_SHA1}
+    parameters:
+      cluster-name:
+        description: demo-cluster
+        type: string
+      version-info:
+        description: ${CIRCLE_SHA1}
+        type: string
+      aws-region:
+        description: ${AWS_REGION}
+        type: string
+        default: ap-south-1
+    steps:
+      - checkout
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: << parameters.cluster-name >>
+          install-kubectl: true
+      - kubernetes/create-or-update-resource:
+          resource-file-path: deployment.yaml
+          get-rollout-status: true
+          resource-name: deployment/demoapp
+    context: aws-dev
+    cluster-name: demo-cluster
+    version-info: 1.0.0
+    requires:
+      - aws-ecr/build-and-push-image
