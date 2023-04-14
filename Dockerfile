@@ -11,9 +11,9 @@ WORKDIR /usr/src/app
 
 # Install curl
 RUN apk add --no-cache curl
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+    && unzip awscliv2.zip \
+    && sudo ./aws/install
 
 
 # Copy files or folders from source to the dest path in the image's filesystem.
