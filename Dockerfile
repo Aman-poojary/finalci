@@ -10,8 +10,11 @@ ENV NPM_CONFIG_LOGLEVEL warn
 WORKDIR /usr/src/app
 
 # Install curl
-RUN apk add --no-cache curl \
-    && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+RUN apk update
+
+RUN apk add --no-cache curl
+
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
     && unzip awscliv2.zip \
     && sudo ./aws/install
 
