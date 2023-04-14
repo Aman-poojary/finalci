@@ -24,7 +24,7 @@ Reviewers: [Ron Powell][ron]
 
 ## Supporting information
 
-> To understand container registries; Docker registries, we have to take a step back. We need to understand the following:
+> To understand container registries; Docker registries, we   have to take a step back. We need to understand the following:
 
 **Docker** - A software platform for building applications based on containers
 
