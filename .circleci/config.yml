@@ -37,7 +37,6 @@ workflows:
           executor: aws-ecr/default
           path: .
           push-image: true
-          region: ap-south-1
           repo: circleci-ecr-demo-v1
           tag: "latest,v0.1.${CIRCLE_BUILD_NUM}"
       - create-deployment:
