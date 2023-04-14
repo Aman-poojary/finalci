@@ -6,7 +6,7 @@ orbs:
 jobs:
   create-deployment:
     docker:
-      - image: ${AWS_ECR_URL}/circleci-ecr-demo-v1:${CIRCLE_SHA1}
+      - image: ${AWS_ECR_URL}/circleci-ecr-demo-v1:latest
     parameters:
       cluster-name:
         description: demo-cluster
