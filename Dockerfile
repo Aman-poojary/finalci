@@ -9,6 +9,9 @@ ENV NPM_CONFIG_LOGLEVEL warn
 # Set the working directory
 WORKDIR /usr/src/app
 
+# Install curl
+RUN apk add --no-cache curl
+
 # Copy files or folders from source to the dest path in the image's filesystem.
 COPY package.json /usr/src/app/
 COPY . /usr/src/app/
