@@ -16,6 +16,6 @@ workflows:
           path: .
           push-image: true
           region: ap-south-1
-          registry-id: 611274589225
+          registry-id: ENV_REGISTRY_ID
           repo: circleci-ecr-demo-v1
           tag: "latest,v0.1.${CIRCLE_BUILD_NUM}"
