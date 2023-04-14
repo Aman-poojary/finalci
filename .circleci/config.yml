@@ -39,6 +39,7 @@ workflows:
           push-image: true
           repo: circleci-ecr-demo-v1
           tag: "latest,v0.1.${CIRCLE_BUILD_NUM}"
+          registry-id: AWS_ECR_REGISTRY_ID
 #       - create-deployment:
 #           context: aws-dev
 #           cluster-name: demo-cluster
