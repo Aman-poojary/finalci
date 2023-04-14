@@ -14,14 +14,14 @@ RUN apk update
 
 RUN apk add --no-cache curl
 
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
-    && unzip awscliv2.zip \
-    && sudo ./aws/install
 
 # Copy files or folders from source to the dest path in the image's filesystem.
 COPY package.json /usr/src/app/
 COPY . /usr/src/app/
 
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
 # Execute any commands on top of the current image as a new layer and commit the results.
 RUN npm install --production
 
